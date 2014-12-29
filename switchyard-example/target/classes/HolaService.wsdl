@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions name="HolaService" targetNamespace="urn:cl.psep.example.switchyard:switchyard-example:1.0" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="urn:cl.psep.example.switchyard:switchyard-example:1.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+  <wsdl:types>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="urn:cl.psep.example.switchyard:switchyard-example:1.0" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="urn:cl.psep.example.switchyard:switchyard-example:1.0">
+  <xsd:element name="saluda" type="tns:saluda"/>
+  <xsd:complexType name="saluda">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="string" type="xsd:string"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:element name="saludaResponse" type="tns:saludaResponse"/>
+  <xsd:complexType name="saludaResponse">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="string" type="xsd:string"/>
+    </xsd:sequence>
+  </xsd:complexType>
+</xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="saludaResponse">
+    <wsdl:part name="parameters" element="tns:saludaResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="saluda">
+    <wsdl:part name="parameters" element="tns:saluda">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="HolaServicePortType">
+    <wsdl:operation name="saluda">
+      <wsdl:input name="saluda" message="tns:saluda">
+    </wsdl:input>
+      <wsdl:output name="saludaResponse" message="tns:saludaResponse">
+    </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="HolaServiceSoapBinding" type="tns:HolaServicePortType">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="saluda">
+      <soap:operation soapAction="saluda" style="document"/>
+      <wsdl:input name="saluda">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="saludaResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="HolaService">
+    <wsdl:port name="HolaServicePort" binding="tns:HolaServiceSoapBinding">
+      <soap:address location="http://localhost:8080/switchyard-example/HolaService"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
